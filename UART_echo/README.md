@@ -26,6 +26,7 @@ When done, you can quit minicom with CTRL-A X.
 - OpenOCD
 - GNU make
 - minicom
+- STM32H7 Drivers
 
 ## File structure
 
