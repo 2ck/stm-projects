@@ -63,3 +63,6 @@ blinks an LED on the board.
 
 [UART_echo/](./UART_echo) allows the board to receive data via USB serial and
 echo it back out to the sender.
+
+[util/](./util) contains a Python script for communication over serial ports,
+and some example images.
