@@ -7,17 +7,23 @@
 
     outputs = { self, nixpkgs }:
     let
-        system = "x86_64-linux"; # should also work for "aarch64-linux" "aarch64-darwin" "x86_64-darwin"
-        pkgs = nixpkgs.legacyPackages.${system};
-        dependencies = [
-            pkgs.gcc-arm-embedded
-            pkgs.openocd
-            pkgs.minicom
-        ];
+        systems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
+        forAll = nixpkgs.lib.attrsets.genAttrs;
     in
     {
-        devShells.${system}.default = pkgs.mkShell {
-            buildInputs = dependencies;
-        };
+        devShells = forAll systems (system:
+        let
+            pkgs = nixpkgs.legacyPackages.${system};
+            dependencies = [
+                pkgs.gcc-arm-embedded
+                pkgs.openocd
+                pkgs.minicom
+            ];
+        in
+        {
+            default = pkgs.mkShell {
+                buildInputs = dependencies;
+            };
+        });
     };
 }
